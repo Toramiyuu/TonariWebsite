@@ -15,14 +15,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
 
-  navToggle.addEventListener('click', () => {
+  // Create overlay for mobile menu
+  const overlay = document.createElement('div');
+  overlay.className = 'nav-overlay';
+  document.body.appendChild(overlay);
+
+  const toggleMenu = () => {
     navLinks.classList.toggle('open');
-  });
+    overlay.classList.toggle('active');
+    document.body.classList.toggle('menu-open');
+  };
+
+  navToggle.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
 
   // Close mobile menu on link click
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
+      overlay.classList.remove('active');
+      document.body.classList.remove('menu-open');
     });
   });
 

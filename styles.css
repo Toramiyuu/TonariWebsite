@@ -213,6 +213,25 @@ a {
   transition: all 0.3s ease;
 }
 
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-overlay.active {
+  display: block;
+  opacity: 1;
+}
+
+body.menu-open {
+  overflow: hidden;
+}
+
 /* ========================================
    HERO
    ======================================== */
@@ -758,6 +777,7 @@ a {
     padding: 40px;
     transition: right 0.3s ease;
     border-left: 1px solid var(--color-border);
+    z-index: 1001;
   }
 
   .nav-links.open {
@@ -770,6 +790,18 @@ a {
 
   .hero-title {
     font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 260px;
+    text-align: center;
   }
 
   .about-stats {
@@ -788,6 +820,10 @@ a {
     grid-row: span 1;
   }
 
+  .hours-map iframe {
+    min-height: 300px;
+  }
+
   .footer-content {
     flex-direction: column;
     gap: 28px;
@@ -797,11 +833,29 @@ a {
     flex-wrap: wrap;
     gap: 16px;
   }
+
+  .section-title {
+    font-size: clamp(1.6rem, 6vw, 2.5rem);
+  }
 }
 
 @media (max-width: 480px) {
   :root {
     --section-padding: 60px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    padding: 0 8px;
   }
 
   .about-stats {
@@ -820,5 +874,13 @@ a {
 
   .menu-item {
     padding: 18px 16px;
+  }
+
+  .contact-card {
+    padding: 28px 20px;
+  }
+
+  .nav-logo {
+    font-size: 1.2rem;
   }
 }
