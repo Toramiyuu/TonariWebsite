@@ -12,6 +12,14 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <span class="loader-kanji">隣</span>
+      <span class="loader-text">TONARI</span>
+    </div>
+  </div>
+
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-container">
@@ -24,7 +32,6 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#menu">Menu</a></li>
-        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#hours">Hours</a></li>
         <li><a href="#contact" class="nav-cta">Reserve</a></li>
       </ul>
@@ -57,33 +64,35 @@
         <div class="about-image">
           <div class="about-image-placeholder">
             <span class="placeholder-kanji">隣</span>
+            <span class="placeholder-sub">est. Georgetown</span>
           </div>
         </div>
         <div class="about-content">
           <p class="section-label">Our Story</p>
-          <h2 class="section-title">A Place Where People Gather</h2>
+          <h2 class="section-title">Your Neighbor on Acheh Street</h2>
           <p class="about-text">
-            隣 (Tonari) means "neighbor" in Japanese — a reflection of the warm,
-            communal spirit at the heart of our restaurant. We bring the authentic
-            izakaya experience to Georgetown's historic Acheh Street.
+            隣 (Tonari) means "neighbor" in Japanese. Originally known as Place We Meet,
+            we rebranded and moved to Acheh Street in the heart of Georgetown's UNESCO
+            heritage zone — bringing the authentic izakaya experience to Penang.
           </p>
           <p class="about-text">
-            Every skewer is carefully selected and grilled over binchotan charcoal,
-            honoring the traditional art of kushiyaki. Our menu celebrates the simple
-            beauty of quality ingredients, expertly prepared.
+            Every skewer is hand-prepared and grilled over charcoal fire, honoring
+            the traditional art of kushiyaki. From chicken and pork skewers to fresh
+            seafood and sushi, our menu spans the best of Japanese comfort food —
+            all at honest prices.
           </p>
-          <div class="about-stats">
-            <div class="stat">
-              <span class="stat-icon">炭</span>
-              <span class="stat-label">Charcoal<br>Grilled</span>
+          <div class="about-highlights">
+            <div class="highlight">
+              <span class="highlight-number">13</span>
+              <span class="highlight-label">Menu Categories</span>
             </div>
-            <div class="stat">
-              <span class="stat-icon">鮮</span>
-              <span class="stat-label">Fresh<br>Daily</span>
+            <div class="highlight">
+              <span class="highlight-number">5.0</span>
+              <span class="highlight-label">TripAdvisor Rating</span>
             </div>
-            <div class="stat">
-              <span class="stat-icon">匠</span>
-              <span class="stat-label">Crafted with<br>Passion</span>
+            <div class="highlight">
+              <span class="highlight-number">炭火</span>
+              <span class="highlight-label">Charcoal Grilled</span>
             </div>
           </div>
         </div>
@@ -377,41 +386,6 @@
     </div>
   </section>
 
-  <!-- Gallery Section -->
-  <section class="section gallery" id="gallery">
-    <div class="container">
-      <p class="section-label center">Gallery</p>
-      <h2 class="section-title center">The Tonari Experience</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item gallery-large">
-          <div class="gallery-placeholder">
-            <span>Kushiyaki<br>Platter</span>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Charcoal<br>Grill</span>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Interior<br>Ambiance</span>
-          </div>
-        </div>
-        <div class="gallery-item">
-          <div class="gallery-placeholder">
-            <span>Fresh<br>Sashimi</span>
-          </div>
-        </div>
-        <div class="gallery-item gallery-large">
-          <div class="gallery-placeholder">
-            <span>Dining<br>Experience</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Hours & Location -->
   <section class="section hours" id="hours">
     <div class="container">
@@ -525,7 +499,6 @@
         <div class="footer-links">
           <a href="#about">About</a>
           <a href="#menu">Menu</a>
-          <a href="#gallery">Gallery</a>
           <a href="#hours">Hours</a>
           <a href="#contact">Contact</a>
         </div>
