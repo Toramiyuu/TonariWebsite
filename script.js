@@ -6,17 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Loading screen ---
   const loader = document.getElementById('loader');
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-    }, 800);
-  });
-  // Fallback in case load already fired
-  if (document.readyState === 'complete') {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-    }, 800);
-  }
+  // Dismiss loader after brief delay (don't wait for all external images)
+  setTimeout(() => {
+    loader.classList.add('hidden');
+  }, 1200);
 
   // --- Navbar scroll effect ---
   const nav = document.getElementById('nav');
