@@ -265,25 +265,32 @@ document.addEventListener('DOMContentLoaded', () => {
 const PLACE_ID = 'ChIJbRXLF8XDSjARvamq0guvAOQ';
 const CACHE_KEY = 'tonari_google_reviews';
 const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+const PHOTO_CACHE_KEY = 'tonari_google_photos';
+const PHOTO_CACHE_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 // Called by the Google Maps JS API callback
 function initPlaces() {
-  const cached = loadCachedReviews();
-  if (cached) {
-    renderGoogleData(cached);
-    return;
-  }
+  const cachedReviews = loadCache(CACHE_KEY, CACHE_DURATION);
+  const cachedPhotos = loadCache(PHOTO_CACHE_KEY, PHOTO_CACHE_DURATION);
 
-  // PlacesService needs a DOM element (can be a hidden div)
+  if (cachedReviews) renderGoogleData(cachedReviews);
+  if (cachedPhotos) renderGooglePhotos(cachedPhotos);
+
+  // If both are cached, skip API call
+  if (cachedReviews && cachedPhotos) return;
+
   const div = document.createElement('div');
   const service = new google.maps.places.PlacesService(div);
 
   service.getDetails({
     placeId: PLACE_ID,
-    fields: ['rating', 'user_ratings_total', 'reviews']
+    fields: ['rating', 'user_ratings_total', 'reviews', 'photos']
   }, (place, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK && place) {
-      const data = {
+    if (status !== google.maps.places.PlacesServiceStatus.OK || !place) return;
+
+    // Reviews
+    if (!cachedReviews) {
+      const reviewData = {
         rating: place.rating,
         totalReviews: place.user_ratings_total,
         reviews: (place.reviews || []).map(r => ({
@@ -293,20 +300,29 @@ function initPlaces() {
           time: r.relative_time_description
         }))
       };
-      cacheReviews(data);
-      renderGoogleData(data);
+      saveCache(CACHE_KEY, reviewData);
+      renderGoogleData(reviewData);
     }
-    // If API fails, placeholder reviews stay visible
+
+    // Photos
+    if (!cachedPhotos && place.photos && place.photos.length > 0) {
+      const photoUrls = place.photos.slice(0, 10).map(photo => ({
+        url: photo.getUrl({ maxWidth: 800 }),
+        attribution: photo.html_attributions ? photo.html_attributions[0] || '' : ''
+      }));
+      saveCache(PHOTO_CACHE_KEY, photoUrls);
+      renderGooglePhotos(photoUrls);
+    }
   });
 }
 
-function loadCachedReviews() {
+function loadCache(key, duration) {
   try {
-    const raw = localStorage.getItem(CACHE_KEY);
+    const raw = localStorage.getItem(key);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
-    if (Date.now() - parsed.timestamp > CACHE_DURATION) {
-      localStorage.removeItem(CACHE_KEY);
+    if (Date.now() - parsed.timestamp > duration) {
+      localStorage.removeItem(key);
       return null;
     }
     return parsed.data;
@@ -315,9 +331,9 @@ function loadCachedReviews() {
   }
 }
 
-function cacheReviews(data) {
+function saveCache(key, data) {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({
+    localStorage.setItem(key, JSON.stringify({
       timestamp: Date.now(),
       data
     }));
@@ -365,4 +381,24 @@ function renderGoogleData(data) {
   }).join('');
 
   grid.innerHTML = cards;
+}
+
+function renderGooglePhotos(photos) {
+  const gallery = document.getElementById('galleryGrid');
+  if (!gallery || !photos || photos.length === 0) return;
+
+  // Build gallery items — first and fifth get the wide class
+  const items = photos.map((photo, i) => {
+    const isWide = (i === 0 || i === 4);
+    const cls = isWide ? 'gallery-item gallery-wide' : 'gallery-item';
+    const sizes = isWide ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw';
+    return `
+      <div class="${cls}" data-label="Tonari">
+        <img src="${photo.url}" sizes="${sizes}"
+             alt="Photo of Tonari restaurant" loading="lazy" width="800" height="533">
+      </div>
+    `;
+  }).join('');
+
+  gallery.innerHTML = items;
 }
