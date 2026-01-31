@@ -288,15 +288,7 @@ function renderGoogleData(data) {
   const starSvg = '<svg viewBox="0 0 20 20" width="18" height="18" fill="#d4a574"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78z"/></svg>';
   const emptyStarSvg = '<svg viewBox="0 0 20 20" width="18" height="18" fill="#3a3530"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78z"/></svg>';
 
-  // Only show 4- and 5-star reviews, prioritize 5-star
-  const goodReviews = data.reviews
-    .filter(r => r.rating >= 4)
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, 4);
-
-  if (goodReviews.length === 0) return;
-
-  const cards = goodReviews.map(review => {
+  const cards = data.reviews.slice(0, 4).map(review => {
     const stars = Array.from({ length: 5 }, (_, i) =>
       i < review.rating ? starSvg : emptyStarSvg
     ).join('');
