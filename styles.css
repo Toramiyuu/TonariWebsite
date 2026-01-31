@@ -292,7 +292,7 @@ body.menu-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('https://images.unsplash.com/photo-1763604048369-a93af06413b0?w=1920&q=80&auto=format') center/cover no-repeat;
+  background: url('https://images.unsplash.com/photo-1624578296395-8e823bddce36?w=1920&q=80&auto=format') center/cover no-repeat;
   overflow: hidden;
 }
 
@@ -303,7 +303,7 @@ body.menu-open {
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.55) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.5) 100%);
 }
 
 .hero-overlay {
@@ -315,6 +315,7 @@ body.menu-open {
   text-align: center;
   padding: 0 24px;
   animation: fadeUp 1s ease-out;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
 }
 
 .hero-logo {
@@ -469,6 +470,7 @@ body.menu-open {
 .gallery-item {
   overflow: hidden;
   border-radius: 2px;
+  height: 300px;
 }
 
 .gallery-item img {
@@ -476,6 +478,11 @@ body.menu-open {
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  filter: brightness(0.9);
+}
+
+.gallery-item:hover img {
+  filter: brightness(1);
 }
 
 .gallery-item:hover img {
