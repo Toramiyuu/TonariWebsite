@@ -307,7 +307,7 @@ body.menu-open {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.6) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.55) 40%, rgba(0,0,0,0.7) 100%);
   z-index: 1;
 }
 
@@ -317,7 +317,7 @@ body.menu-open {
   text-align: center;
   padding: 0 24px;
   animation: fadeUp 1s ease-out;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 1px 6px rgba(0,0,0,0.6);
 }
 
 .hero-hours-badge {
