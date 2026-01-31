@@ -245,4 +245,124 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 3000);
     });
   }
+
+  // --- Fetch TripAdvisor score from static JSON ---
+  fetch('data/ratings.json')
+    .then(res => res.json())
+    .then(data => {
+      const taEl = document.getElementById('taRatingNumber');
+      if (taEl && data.tripadvisor) {
+        taEl.textContent = data.tripadvisor.toFixed(1);
+      }
+    })
+    .catch(() => {}); // Fail silently, keep placeholder
+
 });
+
+// ========================================
+// Google Places API — Reviews & Rating
+// ========================================
+const PLACE_ID = 'ChIJbRXLF8XDSjARvamq0guvAOQ';
+const CACHE_KEY = 'tonari_google_reviews';
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+
+// Called by the Google Maps JS API callback
+function initPlaces() {
+  const cached = loadCachedReviews();
+  if (cached) {
+    renderGoogleData(cached);
+    return;
+  }
+
+  // PlacesService needs a DOM element (can be a hidden div)
+  const div = document.createElement('div');
+  const service = new google.maps.places.PlacesService(div);
+
+  service.getDetails({
+    placeId: PLACE_ID,
+    fields: ['rating', 'user_ratings_total', 'reviews']
+  }, (place, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK && place) {
+      const data = {
+        rating: place.rating,
+        totalReviews: place.user_ratings_total,
+        reviews: (place.reviews || []).map(r => ({
+          author: r.author_name,
+          rating: r.rating,
+          text: r.text,
+          time: r.relative_time_description
+        }))
+      };
+      cacheReviews(data);
+      renderGoogleData(data);
+    }
+    // If API fails, placeholder reviews stay visible
+  });
+}
+
+function loadCachedReviews() {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (Date.now() - parsed.timestamp > CACHE_DURATION) {
+      localStorage.removeItem(CACHE_KEY);
+      return null;
+    }
+    return parsed.data;
+  } catch {
+    return null;
+  }
+}
+
+function cacheReviews(data) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify({
+      timestamp: Date.now(),
+      data
+    }));
+  } catch {}
+}
+
+function renderGoogleData(data) {
+  // Update Google rating in About section
+  const ratingNum = document.getElementById('googleRatingNumber');
+  const ratingLabel = document.getElementById('googleRatingLabel');
+  if (ratingNum && data.rating) {
+    ratingNum.textContent = data.rating.toFixed(1);
+  }
+  if (ratingLabel && data.totalReviews) {
+    ratingLabel.textContent = `Google (${data.totalReviews} reviews)`;
+  }
+
+  // Render reviews into testimonials grid
+  const grid = document.getElementById('reviewsGrid');
+  if (!grid || !data.reviews || data.reviews.length === 0) return;
+
+  // Build star SVG
+  const starSvg = '<svg viewBox="0 0 20 20" width="18" height="18" fill="#d4a574"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78z"/></svg>';
+  const emptyStarSvg = '<svg viewBox="0 0 20 20" width="18" height="18" fill="#3a3530"><path d="M10 1l2.39 4.84 5.34.78-3.87 3.77.91 5.32L10 13.28l-4.77 2.51.91-5.32L2.27 6.7l5.34-.78z"/></svg>';
+
+  const cards = data.reviews.slice(0, 4).map(review => {
+    const stars = Array.from({ length: 5 }, (_, i) =>
+      i < review.rating ? starSvg : emptyStarSvg
+    ).join('');
+
+    const text = review.text.length > 200
+      ? review.text.substring(0, 200).trim() + '...'
+      : review.text;
+
+    return `
+      <div class="testimonial-card">
+        <div class="testimonial-stars">${stars}</div>
+        <p class="testimonial-text">"${text.replace(/"/g, '&quot;').replace(/</g, '&lt;')}"</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">${review.author.replace(/</g, '&lt;')}</span>
+          <span class="testimonial-source"><span class="review-source-badge">Google</span> ${review.time || ''}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  grid.innerHTML = cards;
+}
