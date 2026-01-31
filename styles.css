@@ -203,9 +203,16 @@ a {
 
 .nav-logo {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-icon {
+  flex-shrink: 0;
 }
 
 .nav-links {
@@ -285,7 +292,7 @@ body.menu-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a1510 0%, #0a0a0a 50%, #151210 100%);
+  background: url('https://images.unsplash.com/photo-1763604048369-a93af06413b0?w=1920&q=80&auto=format') center/cover no-repeat;
   overflow: hidden;
 }
 
@@ -296,17 +303,11 @@ body.menu-open {
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(212, 165, 116, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 50%, rgba(212, 165, 116, 0.04) 0%, transparent 60%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.7) 100%);
 }
 
 .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90" opacity="0.02" fill="white">隣</text></svg>') repeat;
-  background-size: 300px;
-  opacity: 0.5;
+  display: none;
 }
 
 .hero-content {
@@ -314,6 +315,10 @@ body.menu-open {
   text-align: center;
   padding: 0 24px;
   animation: fadeUp 1s ease-out;
+}
+
+.hero-logo {
+  margin-bottom: 24px;
 }
 
 .hero-subtitle {
@@ -404,20 +409,11 @@ body.menu-open {
   align-items: center;
 }
 
-.about-image-placeholder {
+.about-img {
+  width: 100%;
   aspect-ratio: 4/5;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.placeholder-kanji {
-  font-family: var(--font-jp);
-  font-size: 8rem;
-  color: var(--color-border);
-  opacity: 0.6;
+  object-fit: cover;
+  border-radius: 2px;
 }
 
 .about-text {
@@ -425,17 +421,6 @@ body.menu-open {
   line-height: 1.8;
   color: var(--color-text-muted);
   margin-bottom: 20px;
-}
-
-.placeholder-sub {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin-top: 12px;
-  opacity: 0.4;
 }
 
 .about-highlights {
@@ -465,6 +450,50 @@ body.menu-open {
   color: var(--color-text-muted);
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+/* ========================================
+   GALLERY
+   ======================================== */
+.gallery {
+  background: var(--color-bg);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-wide {
+  grid-column: 1 / -1;
+  max-height: 400px;
+}
+
+.gallery-note {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  opacity: 0.5;
+  margin-top: 16px;
+  font-style: italic;
 }
 
 /* ========================================
@@ -813,6 +842,14 @@ body.menu-open {
 
   .about-highlights {
     gap: 24px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-wide {
+    max-height: 250px;
   }
 
   .contact-methods {

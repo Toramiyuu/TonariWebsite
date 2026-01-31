@@ -23,7 +23,13 @@
   <!-- Navigation -->
   <nav class="nav" id="nav">
     <div class="nav-container">
-      <a href="#hero" class="nav-logo">隣 TONARI</a>
+      <a href="#hero" class="nav-logo">
+        <svg class="nav-logo-icon" viewBox="0 0 40 40" width="32" height="32">
+          <circle cx="20" cy="20" r="19" fill="#c75c3a" stroke="none"/>
+          <text x="20" y="24" text-anchor="middle" fill="white" font-size="16" font-family="'Noto Sans JP', serif" font-weight="500">隣</text>
+        </svg>
+        TONARI
+      </a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span>
         <span></span>
@@ -42,8 +48,15 @@
   <section class="hero" id="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
+      <div class="hero-logo">
+        <svg viewBox="0 0 120 120" width="100" height="100">
+          <circle cx="60" cy="60" r="58" fill="#c75c3a" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+          <text x="60" y="68" text-anchor="middle" fill="white" font-size="46" font-family="'Noto Sans JP', serif" font-weight="500">隣</text>
+          <text x="60" y="90" text-anchor="middle" fill="white" font-size="11" font-family="'Inter', sans-serif" font-weight="300" letter-spacing="4">TONARI</text>
+        </svg>
+      </div>
       <p class="hero-subtitle">Georgetown, Penang</p>
-      <h1 class="hero-title">隣<br>TONARI</h1>
+      <h1 class="hero-title">隣 TONARI</h1>
       <p class="hero-tagline">Japanese Food & Kushiyaki</p>
       <p class="hero-description">Charcoal-grilled perfection in the heart of Georgetown</p>
       <div class="hero-actions">
@@ -62,10 +75,7 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-image">
-          <div class="about-image-placeholder">
-            <span class="placeholder-kanji">隣</span>
-            <span class="placeholder-sub">est. Georgetown</span>
-          </div>
+          <img src="https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=800&q=80&auto=format" alt="Japanese izakaya restaurant at night with warm lanterns" class="about-img" loading="lazy">
         </div>
         <div class="about-content">
           <p class="section-label">Our Story</p>
@@ -97,6 +107,26 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="section gallery">
+    <div class="container">
+      <p class="section-label center">Gallery</p>
+      <h2 class="section-title center">A Taste of Tonari</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item gallery-wide">
+          <img src="https://images.unsplash.com/photo-1768162125959-8a35d4ede7dc?w=800&q=80&auto=format" alt="Yakitori skewers with green onions" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1697652974652-a2336106043b?w=600&q=80&auto=format" alt="Tonkotsu ramen bowl" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1682566509568-ded8649b26bb?w=600&q=80&auto=format" alt="Japanese rice bowl donburi" loading="lazy">
+        </div>
+      </div>
+      <p class="gallery-note">* Placeholder images — will be replaced with actual Tonari food photography</p>
     </div>
   </section>
 
