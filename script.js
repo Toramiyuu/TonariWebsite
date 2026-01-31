@@ -175,77 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
     ctaObserver.observe(heroSection);
   }
 
-  // --- Reservation form ---
-  const form = document.getElementById('reservationForm');
-  const dateInput = document.getElementById('resDate');
-
-  if (form && dateInput) {
-    // Set minimum date to today (Malaysia time)
-    const now = new Date();
-    const myNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kuala_Lumpur' }));
-    const year = myNow.getFullYear();
-    const month = String(myNow.getMonth() + 1).padStart(2, '0');
-    const day = String(myNow.getDate()).padStart(2, '0');
-    dateInput.min = `${year}-${month}-${day}`;
-
-    // Thursday warning
-    dateInput.addEventListener('change', () => {
-      const selected = new Date(dateInput.value + 'T12:00:00');
-      const existingWarning = dateInput.parentNode.querySelector('.form-thursday-warning');
-      if (existingWarning) existingWarning.remove();
-
-      if (selected.getDay() === 4) {
-        const warning = document.createElement('p');
-        warning.className = 'form-thursday-warning';
-        warning.textContent = 'We are closed on Thursdays. Please select another date.';
-        dateInput.parentNode.appendChild(warning);
-        dateInput.setCustomValidity('We are closed on Thursdays');
-      } else {
-        dateInput.setCustomValidity('');
-      }
-    });
-
-    // Form submission via mailto
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById('resName').value;
-      const phone = document.getElementById('resPhone').value;
-      const date = document.getElementById('resDate').value;
-      const time = document.getElementById('resTime').value;
-      const guests = document.getElementById('resGuests').value;
-      const notes = document.getElementById('resNotes').value;
-
-      const subject = encodeURIComponent(`Reservation Request — ${name} — ${date}`);
-      const body = encodeURIComponent(
-        `New Reservation Request\n` +
-        `========================\n\n` +
-        `Name: ${name}\n` +
-        `Phone: ${phone}\n` +
-        `Date: ${date}\n` +
-        `Time: ${time}\n` +
-        `Party Size: ${guests}\n` +
-        `Special Requests: ${notes || 'None'}\n\n` +
-        `— Sent from Tonari website`
-      );
-
-      window.location.href = `mailto:tonari.cafe.penang@gmail.com?subject=${subject}&body=${body}`;
-
-      // Show confirmation
-      const btn = form.querySelector('.form-submit');
-      const originalText = btn.textContent;
-      btn.textContent = 'Opening email client...';
-      btn.style.background = '#4ade80';
-      btn.style.color = '#0a0a0a';
-
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-        btn.style.color = '';
-      }, 3000);
-    });
-  }
-
   // --- Fetch TripAdvisor score from static JSON ---
   fetch('data/ratings.json')
     .then(res => res.json())
@@ -387,18 +316,25 @@ function renderGooglePhotos(photos) {
   const gallery = document.getElementById('galleryGrid');
   if (!gallery || !photos || photos.length === 0) return;
 
-  // Build gallery items — first and fifth get the wide class
-  const items = photos.map((photo, i) => {
-    const isWide = (i === 0 || i === 4);
-    const cls = isWide ? 'gallery-item gallery-wide' : 'gallery-item';
-    const sizes = isWide ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 100vw, 33vw';
-    return `
-      <div class="${cls}" data-label="Tonari">
-        <img src="${photo.url}" sizes="${sizes}"
-             alt="Photo of Tonari restaurant" loading="lazy" width="800" height="533">
-      </div>
-    `;
-  }).join('');
+  // Use up to 9 photos for a clean 3x3 grid
+  const galleryPhotos = photos.slice(0, 9);
+  const items = galleryPhotos.map(photo => `
+    <div class="gallery-item" data-label="Tonari">
+      <img src="${photo.url}" sizes="(max-width: 768px) 100vw, 33vw"
+           alt="Photo of Tonari restaurant" loading="lazy" width="600" height="400">
+    </div>
+  `).join('');
 
   gallery.innerHTML = items;
+
+  // Also populate menu featured photos (use first 3 food-related photos)
+  const menuFeatured = document.getElementById('menuFeatured');
+  if (menuFeatured && photos.length >= 3) {
+    const featuredItems = photos.slice(0, 3).map(photo => `
+      <div class="menu-featured-item">
+        <img src="${photo.url}" alt="Tonari food" loading="lazy" width="600" height="450">
+      </div>
+    `).join('');
+    menuFeatured.innerHTML = featuredItems;
+  }
 }

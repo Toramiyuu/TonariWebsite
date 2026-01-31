@@ -536,16 +536,35 @@ body.menu-open {
   letter-spacing: 1px;
   text-transform: uppercase;
   border-radius: 2px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.gallery-item:hover::after {
   opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .gallery-wide {
   grid-column: span 2;
+}
+
+/* Demo image label */
+.demo-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.demo-image-label {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 2px;
+  z-index: 2;
 }
 
 /* ========================================
@@ -657,6 +676,39 @@ body.menu-open {
   background: var(--color-accent);
   border-color: var(--color-accent);
   color: var(--color-bg);
+}
+
+/* Menu Featured Photos */
+.menu-featured {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+.menu-featured:empty {
+  display: none;
+}
+
+.menu-featured-item {
+  overflow: hidden;
+  border-radius: 2px;
+  aspect-ratio: 4/3;
+  position: relative;
+}
+
+.menu-featured-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.menu-featured-item:hover img {
+  filter: brightness(1);
+  transform: scale(1.03);
 }
 
 .menu-grid {
@@ -832,113 +884,48 @@ body.menu-open {
   margin: 0 auto;
 }
 
-/* Reservation Form */
-.reservation-wrapper {
-  margin-top: 40px;
-}
-
-.reservation-form {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 40px;
+/* Reservation CTA */
+.reservation-cta-box {
+  max-width: 600px;
+  margin: 40px auto 0;
+  padding: 48px 40px;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: 2px;
-}
-
-.form-row {
-  display: grid;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.form-row-2 {
-  grid-template-columns: 1fr 1fr;
-}
-
-.form-row-3 {
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-text-muted);
-  font-weight: 500;
-}
-
-.form-optional {
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 300;
-  font-size: 0.7rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  padding: 12px 16px;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  border-radius: 2px;
-  transition: border-color 0.3s ease;
-  -webkit-appearance: none;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  border-color: var(--color-accent);
-  outline: none;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: var(--color-text-muted);
-  opacity: 0.5;
-}
-
-.form-group select {
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a09888' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
-  padding-right: 40px;
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
-.form-submit {
-  width: 100%;
-  margin-top: 16px;
-  border: none;
-  font-size: 0.9rem;
-}
-
-.form-disclaimer {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
   text-align: center;
-  margin-top: 12px;
 }
 
-.form-thursday-warning {
-  color: #ef4444;
-  font-size: 0.8rem;
-  margin-top: 4px;
+.reservation-cta-text {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.reservation-cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.reservation-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  font-size: 0.85rem;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
 }
 
 /* Contact cards */
@@ -1224,16 +1211,23 @@ body.menu-open {
     font-size: clamp(1.6rem, 6vw, 2.5rem);
   }
 
-  .form-row-3 {
-    grid-template-columns: 1fr 1fr;
+  .reservation-cta-box {
+    padding: 32px 20px;
   }
 
-  .form-row-3 .form-group:first-child {
-    grid-column: span 2;
+  .reservation-cta-buttons {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .reservation-form {
-    padding: 28px 20px;
+  .reservation-cta-btn {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .menu-featured {
+    grid-template-columns: 1fr;
   }
 
   /* Mobile CTA Bar */
@@ -1349,7 +1343,7 @@ body.menu-open {
     font-size: 1.2rem;
   }
 
-  .form-row-2 {
+  .menu-featured {
     grid-template-columns: 1fr;
   }
 

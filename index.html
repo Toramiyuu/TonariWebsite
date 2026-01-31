@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="image" href="https://images.unsplash.com/photo-1624578296395-8e823bddce36?w=1920&q=80&auto=format" fetchpriority="high">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
 
   <!-- Restaurant Structured Data -->
   <script type="application/ld+json">
@@ -139,11 +139,14 @@
     <div class="container">
       <div class="about-grid">
         <div class="about-image">
-          <img src="https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=800&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=800&q=80&auto=format 800w"
-               sizes="(max-width: 968px) 100vw, 50vw"
-               alt="Japanese izakaya restaurant at night with warm lanterns" class="about-img" loading="lazy" width="800" height="1000">
+          <div class="demo-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=800&q=80&auto=format"
+                 srcset="https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=400&q=80&auto=format 400w,
+                         https://images.unsplash.com/photo-1766872760892-40f0473b81f3?w=800&q=80&auto=format 800w"
+                 sizes="(max-width: 968px) 100vw, 50vw"
+                 alt="Japanese izakaya restaurant at night with warm lanterns" class="about-img" loading="lazy" width="800" height="1000">
+            <span class="demo-image-label">Demo image</span>
+          </div>
         </div>
         <div class="about-content">
           <p class="section-label">Our Story</p>
@@ -173,9 +176,8 @@
               <span class="highlight-number" id="googleRatingNumber">—</span>
               <span class="highlight-label" id="googleRatingLabel">Google Rating</span>
             </div>
-            <!-- TODO: Replace # with actual TripAdvisor listing URL -->
-            <a href="#" class="highlight highlight-link" target="_blank" rel="noopener">
-              <span class="highlight-number" id="taRatingNumber">5.0</span>
+            <a href="https://www.tripadvisor.com.my/Restaurant_Review-g298303-d26528473-Reviews-Tonari_Japanese_Food_Kushiyaki_Restaurant-George_Town_Penang_Island_Penang.html" class="highlight highlight-link" target="_blank" rel="noopener">
+              <span class="highlight-number" id="taRatingNumber">4.5</span>
               <span class="highlight-label">TripAdvisor</span>
             </a>
             <div class="highlight">
@@ -194,61 +196,50 @@
       <p class="section-label center">Gallery</p>
       <h2 class="section-title center">A Taste of Tonari</h2>
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item gallery-wide" data-label="Kushiyaki">
-          <img src="https://images.unsplash.com/photo-1768162125959-8a35d4ede7dc?w=800&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1768162125959-8a35d4ede7dc?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1768162125959-8a35d4ede7dc?w=800&q=80&auto=format 800w"
-               sizes="(max-width: 768px) 100vw, 66vw"
-               alt="Yakitori skewers grilling over charcoal" loading="lazy" width="800" height="533">
+        <div class="gallery-item" data-label="Demo image">
+          <img src="https://images.unsplash.com/photo-1768162125959-8a35d4ede7dc?w=600&q=80&auto=format"
+               sizes="(max-width: 768px) 100vw, 33vw"
+               alt="Yakitori skewers grilling over charcoal" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item" data-label="Ramen">
+        <div class="gallery-item" data-label="Demo image">
           <img src="https://images.unsplash.com/photo-1697652974652-a2336106043b?w=600&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1697652974652-a2336106043b?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1697652974652-a2336106043b?w=600&q=80&auto=format 600w"
                sizes="(max-width: 768px) 100vw, 33vw"
                alt="Rich tonkotsu ramen bowl" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item" data-label="Sushi">
+        <div class="gallery-item" data-label="Demo image">
           <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=600&q=80&auto=format 600w"
                sizes="(max-width: 768px) 100vw, 33vw"
                alt="Fresh sushi and sashimi platter" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item" data-label="Seafood">
+        <div class="gallery-item" data-label="Demo image">
           <img src="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1534482421-64566f976cfa?w=600&q=80&auto=format 600w"
                sizes="(max-width: 768px) 100vw, 33vw"
                alt="Grilled seafood platter" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item gallery-wide" data-label="Izakaya">
-          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80&auto=format 800w"
-               sizes="(max-width: 768px) 100vw, 66vw"
-               alt="Warm Japanese restaurant interior" loading="lazy" width="800" height="533">
+        <div class="gallery-item" data-label="Demo image">
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80&auto=format"
+               sizes="(max-width: 768px) 100vw, 33vw"
+               alt="Warm Japanese restaurant interior" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item" data-label="Sake">
+        <div class="gallery-item" data-label="Demo image">
           <img src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1553621042-f6e147245754?w=600&q=80&auto=format 600w"
                sizes="(max-width: 768px) 100vw, 33vw"
                alt="Japanese sake service" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item" data-label="Donburi">
+        <div class="gallery-item" data-label="Demo image">
           <img src="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1569050467447-ce54b3bbc37d?w=600&q=80&auto=format 600w"
                sizes="(max-width: 768px) 100vw, 33vw"
                alt="Salmon donburi rice bowl" loading="lazy" width="600" height="400">
         </div>
-        <div class="gallery-item" data-label="Grilled">
+        <div class="gallery-item" data-label="Demo image">
           <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80&auto=format"
-               srcset="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80&auto=format 400w,
-                       https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80&auto=format 600w"
                sizes="(max-width: 768px) 100vw, 33vw"
                alt="Beautifully plated Japanese dish" loading="lazy" width="600" height="400">
+        </div>
+        <div class="gallery-item" data-label="Demo image">
+          <img src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?w=600&q=80&auto=format"
+               sizes="(max-width: 768px) 100vw, 33vw"
+               alt="Japanese tempura" loading="lazy" width="600" height="400">
         </div>
       </div>
     </div>
@@ -341,6 +332,8 @@
         <button class="menu-tab" data-category="specials">Specials</button>
         <button class="menu-tab" data-category="drinks">Drinks</button>
       </div>
+
+      <div class="menu-featured" id="menuFeatured"></div>
 
       <div class="menu-grid" id="menuGrid">
         <!-- Chicken Skewers -->
@@ -741,63 +734,19 @@
         <h2 class="section-title center">Reserve Your Table</h2>
         <p class="section-subtitle center">Book ahead to secure your spot — walk-ins also welcome</p>
 
-        <div class="reservation-wrapper">
-          <form class="reservation-form" id="reservationForm">
-            <div class="form-row form-row-2">
-              <div class="form-group">
-                <label for="resName">Name</label>
-                <input type="text" id="resName" name="name" required placeholder="Your name">
-              </div>
-              <div class="form-group">
-                <label for="resPhone">Phone</label>
-                <input type="tel" id="resPhone" name="phone" required placeholder="012-345-6789">
-              </div>
-            </div>
-            <div class="form-row form-row-3">
-              <div class="form-group">
-                <label for="resDate">Date</label>
-                <input type="date" id="resDate" name="date" required>
-              </div>
-              <div class="form-group">
-                <label for="resTime">Time</label>
-                <select id="resTime" name="time" required>
-                  <option value="">Select time</option>
-                  <option value="5:30 PM">5:30 PM</option>
-                  <option value="6:00 PM">6:00 PM</option>
-                  <option value="6:30 PM">6:30 PM</option>
-                  <option value="7:00 PM">7:00 PM</option>
-                  <option value="7:30 PM">7:30 PM</option>
-                  <option value="8:00 PM">8:00 PM</option>
-                  <option value="8:30 PM">8:30 PM</option>
-                  <option value="9:00 PM">9:00 PM</option>
-                  <option value="9:30 PM">9:30 PM</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="resGuests">Guests</label>
-                <select id="resGuests" name="guests" required>
-                  <option value="">Party size</option>
-                  <option value="1">1 person</option>
-                  <option value="2">2 people</option>
-                  <option value="3">3 people</option>
-                  <option value="4">4 people</option>
-                  <option value="5">5 people</option>
-                  <option value="6">6 people</option>
-                  <option value="7">7 people</option>
-                  <option value="8+">8+ people</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="resNotes">Special Requests <span class="form-optional">(optional)</span></label>
-              <textarea id="resNotes" name="notes" rows="3" placeholder="Any dietary requirements or special requests?"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary form-submit">Request Reservation</button>
-            <p class="form-disclaimer">We'll confirm your reservation via phone or email within 24 hours.</p>
-          </form>
+        <div class="reservation-cta-box">
+          <p class="reservation-cta-text">Call or email us to reserve your table. Walk-ins are also welcome.</p>
+          <div class="reservation-cta-buttons">
+            <a href="tel:+60117131318" class="btn btn-primary reservation-cta-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c1.21.34 2 .57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              Call 011-7113-1318
+            </a>
+            <a href="mailto:tonari.cafe.penang@gmail.com" class="btn btn-outline reservation-cta-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Email Us
+            </a>
+          </div>
         </div>
-
-        <p class="contact-divider">Or reach out directly</p>
 
         <div class="contact-methods">
           <a href="mailto:tonari.cafe.penang@gmail.com" class="contact-card">
@@ -892,6 +841,6 @@
 
   <!-- Google Maps Places API — replace YOUR_API_KEY with your actual key -->
   <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAthBWHrKdDFqPBMju2SwForOSsnLw_IjQ&libraries=places&callback=initPlaces"></script>
-  <script src="script.js?v=6"></script>
+  <script src="script.js?v=7"></script>
 </body>
 </html>
