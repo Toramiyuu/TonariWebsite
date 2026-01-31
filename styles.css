@@ -1146,7 +1146,7 @@ body.menu-open {
     right: -100%;
     width: 280px;
     height: 100vh;
-    background: var(--color-bg);
+    background: #1a1816;
     flex-direction: column;
     justify-content: center;
     gap: 28px;
