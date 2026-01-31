@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Loading screen ---
   const loader = document.getElementById('loader');
-  // Dismiss loader after brief delay (don't wait for all external images)
   setTimeout(() => {
     loader.classList.add('hidden');
   }, 1200);
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
 
-  // Create overlay for mobile menu
   const overlay = document.createElement('div');
   overlay.className = 'nav-overlay';
   document.body.appendChild(overlay);
@@ -36,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
   navToggle.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', toggleMenu);
 
-  // Close mobile menu on link click
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
@@ -52,12 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   menuTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const category = tab.dataset.category;
-
-      // Update active tab
       menuTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-
-      // Filter items
       menuItems.forEach(item => {
         if (item.dataset.category === category) {
           item.classList.remove('hidden');
@@ -90,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(section);
   });
 
-  // Add revealed styles
   const style = document.createElement('style');
   style.textContent = `.revealed { opacity: 1 !important; transform: translateY(0) !important; }`;
   document.head.appendChild(style);
@@ -117,4 +109,140 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+  // --- Hero hours badge ---
+  const heroBadge = document.getElementById('heroBadge');
+  if (heroBadge) {
+    const updateHoursBadge = () => {
+      const now = new Date();
+      // Get Malaysia time
+      const myTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kuala_Lumpur' }));
+      const day = myTime.getDay(); // 0=Sun, 4=Thu
+      const hours = myTime.getHours();
+      const minutes = myTime.getMinutes();
+      const currentMinutes = hours * 60 + minutes;
+
+      const openTime = 17 * 60 + 30;  // 5:30 PM
+      const closeTime = 23 * 60 + 30;  // 11:30 PM
+
+      const dot = heroBadge.querySelector('.badge-dot');
+      const text = heroBadge.querySelector('.badge-text');
+
+      if (day === 4) {
+        // Thursday - closed
+        dot.classList.add('closed');
+        text.textContent = 'Closed today (Thursday)';
+      } else if (currentMinutes >= openTime && currentMinutes < closeTime) {
+        // Currently open
+        dot.classList.remove('closed');
+        text.textContent = 'Open now until 11:30 PM';
+      } else if (currentMinutes < openTime) {
+        // Before opening
+        dot.classList.add('closed');
+        text.textContent = 'Opens today at 5:30 PM';
+      } else {
+        // After closing
+        dot.classList.add('closed');
+        const tomorrow = (day + 1) % 7;
+        if (tomorrow === 4) {
+          text.textContent = 'Closed tomorrow — Opens Friday 5:30 PM';
+        } else {
+          text.textContent = 'Closed now — Opens tomorrow 5:30 PM';
+        }
+      }
+    };
+
+    updateHoursBadge();
+    // Update every minute
+    setInterval(updateHoursBadge, 60000);
+  }
+
+  // --- Mobile CTA bar visibility ---
+  const mobileCta = document.getElementById('mobileCta');
+  const heroSection = document.getElementById('hero');
+
+  if (mobileCta && heroSection) {
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          mobileCta.classList.remove('visible');
+        } else {
+          mobileCta.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    ctaObserver.observe(heroSection);
+  }
+
+  // --- Reservation form ---
+  const form = document.getElementById('reservationForm');
+  const dateInput = document.getElementById('resDate');
+
+  if (form && dateInput) {
+    // Set minimum date to today (Malaysia time)
+    const now = new Date();
+    const myNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Kuala_Lumpur' }));
+    const year = myNow.getFullYear();
+    const month = String(myNow.getMonth() + 1).padStart(2, '0');
+    const day = String(myNow.getDate()).padStart(2, '0');
+    dateInput.min = `${year}-${month}-${day}`;
+
+    // Thursday warning
+    dateInput.addEventListener('change', () => {
+      const selected = new Date(dateInput.value + 'T12:00:00');
+      const existingWarning = dateInput.parentNode.querySelector('.form-thursday-warning');
+      if (existingWarning) existingWarning.remove();
+
+      if (selected.getDay() === 4) {
+        const warning = document.createElement('p');
+        warning.className = 'form-thursday-warning';
+        warning.textContent = 'We are closed on Thursdays. Please select another date.';
+        dateInput.parentNode.appendChild(warning);
+        dateInput.setCustomValidity('We are closed on Thursdays');
+      } else {
+        dateInput.setCustomValidity('');
+      }
+    });
+
+    // Form submission via mailto
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('resName').value;
+      const phone = document.getElementById('resPhone').value;
+      const date = document.getElementById('resDate').value;
+      const time = document.getElementById('resTime').value;
+      const guests = document.getElementById('resGuests').value;
+      const notes = document.getElementById('resNotes').value;
+
+      const subject = encodeURIComponent(`Reservation Request — ${name} — ${date}`);
+      const body = encodeURIComponent(
+        `New Reservation Request\n` +
+        `========================\n\n` +
+        `Name: ${name}\n` +
+        `Phone: ${phone}\n` +
+        `Date: ${date}\n` +
+        `Time: ${time}\n` +
+        `Party Size: ${guests}\n` +
+        `Special Requests: ${notes || 'None'}\n\n` +
+        `— Sent from Tonari website`
+      );
+
+      window.location.href = `mailto:tonari.cafe.penang@gmail.com?subject=${subject}&body=${body}`;
+
+      // Show confirmation
+      const btn = form.querySelector('.form-submit');
+      const originalText = btn.textContent;
+      btn.textContent = 'Opening email client...';
+      btn.style.background = '#4ade80';
+      btn.style.color = '#0a0a0a';
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 3000);
+    });
+  }
 });
