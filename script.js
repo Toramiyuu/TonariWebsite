@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentMinutes = hours * 60 + minutes;
 
       const openTime = 17 * 60 + 30;  // 5:30 PM
-      const closeTime = 23 * 60 + 30;  // 11:30 PM
+      const closeTime = 22 * 60;  // 10:00 PM
 
       const dot = heroBadge.querySelector('.badge-dot');
       const text = heroBadge.querySelector('.badge-text');
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else if (currentMinutes >= openTime && currentMinutes < closeTime) {
         // Currently open
         dot.classList.remove('closed');
-        text.textContent = 'Open now until 11:30 PM';
+        text.textContent = 'Open now until 10:00 PM';
       } else if (currentMinutes < openTime) {
         // Before opening
         dot.classList.add('closed');
